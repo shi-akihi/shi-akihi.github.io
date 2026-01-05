@@ -1,6 +1,6 @@
 ---
 layout: post
-title: CSE Class Notes
+title: CSE Class Notes 1
 date: '2025-11-14 22:57:00 +0800'
 categories: [Computer Science, Basics]
 tags: [SJTU, Computer Science, Notes, System, Introduction]
