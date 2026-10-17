@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog · Chenyang Shi</title>
+  <link rel="stylesheet" href="../stylesheet.css">
+  <style>
+    .post-page { max-width: 800px; margin: 0 auto; padding: 40px 24px 64px; }
+    .post-nav { margin-bottom: 40px; }
+    .post-content { line-height: 1.75; }
+    .post-content h1 { line-height: 1.25; margin-bottom: 8px; }
+    .post-content h2 { margin-top: 32px; }
+    .post-content img { max-width: 100%; }
+    .post-date { color: #777; font-size: 13px; margin-bottom: 32px; }
+    .post-content pre { overflow-x: auto; padding: 16px; background: #f6f8fa; border-radius: 6px; }
+    .post-content code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  </style>
+</head>
+<body>
+  <main class="post-page">
+    <nav class="post-nav"><a href="./">← All posts</a></nav>
+    <article id="post-content" class="post-content">Loading post…</article>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const file = new URLSearchParams(location.search).get('file');
+    const target = document.getElementById('post-content');
+    if (!file || !/^[\w./-]+\.md$/.test(file) || file.includes('..')) {
+      target.textContent = 'Post not found.';
+    } else {
+      fetch('posts/' + file)
+        .then(response => { if (!response.ok) throw new Error(); return response.text(); })
+        .then(markdown => { target.innerHTML = marked.parse(markdown); })
+        .catch(() => { target.textContent = 'Post not found.'; });
+    }
+  </script>
+</body>
+</html>
